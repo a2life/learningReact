@@ -7,12 +7,8 @@ import ListAppointments from './ListAppointments'
 
 
 function App() {
- 
-
- 
+  
   const [apts, setApts] = useState([]);
-
-
 
   useEffect(() => {
     async function fetchData() {
