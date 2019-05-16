@@ -4,11 +4,12 @@ import '../css/App.css';
 import AddAppointments from './AddAppointments'
 import SearchAppointments from './SearchAppointments'
 import ListAppointments from './ListAppointments'
-
+import {without} from 'lodash';
 
 function App() {
   
   const [apts, setApts] = useState([]);
+  const [formDisplay,setformDisplay]=useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -22,7 +23,24 @@ function App() {
     fetchData();
   }, []);
 
+  const deleteAppointment= function(apt){
+    let tempApts=without(apts, apt);
 
+    setApts(tempApts);
+  }
+  const toggleForm=function(){
+    setformDisplay(!formDisplay)
+  }
+
+  function addAppointment(apt){
+    let tempApts=apts;
+    let id=tempApts.length;
+    apt.id=id;
+    tempApts.unshift(apt)
+
+    setApts(tempApts)
+
+  }
   return (
     <main className="page bg-white" id="petratings">
       <div className="container">
@@ -31,9 +49,15 @@ function App() {
             <div className="container">
            
 
-              <AddAppointments />
-              <SearchAppointments />
-              <ListAppointments appointments={apts} />
+              <AddAppointments 
+              formDisplay={formDisplay}
+              toggleForm={toggleForm}
+              addAppointment={addAppointment}
+              />
+              <SearchAppointments  />
+              <ListAppointments 
+                appointments={apts}
+                deleteAppointment={deleteAppointment} />
             </div>
           </div>
         </div>
