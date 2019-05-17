@@ -10,7 +10,6 @@ function AddAppointments(props){
     const [aptNotes, setAptNote]= useState('');
 
     function handleChange(e){
-        const target=e.target;
         const value=e.target.value;
         const name=e.target.name
         switch(name){

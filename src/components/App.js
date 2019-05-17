@@ -9,19 +9,25 @@ import {without} from 'lodash';
 function App() {
   
   const [apts, setApts] = useState([]);
-  const [formDisplay,setformDisplay]=useState(false)
+  const [formDisplay,setformDisplay]=useState(false);
+  const [itemId, setItemId]=useState(0);
+  const [orderBy,setOrderBy]=useState('petName')
+  const [orderDir,setOrderDir]=useState('asc')
 
   useEffect(() => {
     async function fetchData() {
       const result = await axios(
         './data.json',
       );
-      const apts=result.data.map(function(el,index){ el.id=index; return el}) //add unique key to the array
-      setApts(apts);
-    };
 
+      const apts=result.data.map(function(el,index){ 
+        el.id=index;
+        return el}) //add unique key to the array
+      setApts(apts);
+      setItemId(apts.length)
+    };
     fetchData();
-  }, []);
+  },[]);
 
   const deleteAppointment= function(apt){
     let tempApts=without(apts, apt);
@@ -34,13 +40,30 @@ function App() {
 
   function addAppointment(apt){
     let tempApts=apts;
-    let id=tempApts.length;
-    apt.id=id;
+    apt.id=itemId;
+    setItemId(itemId+1)
     tempApts.unshift(apt)
 
     setApts(tempApts)
 
   }
+  let order;
+  let filteredApts=apts;
+  if(orderDir ==='asc'){
+    order=1;
+  } else {
+    order=-1;
+  }
+
+  filteredApts.sort((a,b)=>{
+    if (a[orderBy].toLowerCase()<b[orderBy].toLowerCase()){
+      return -1 * order;
+    } else {
+      return 1 * order;
+    }
+  })
+
+  
   return (
     <main className="page bg-white" id="petratings">
       <div className="container">
@@ -56,7 +79,7 @@ function App() {
               />
               <SearchAppointments  />
               <ListAppointments 
-                appointments={apts}
+                appointments={filteredApts}
                 deleteAppointment={deleteAppointment} />
             </div>
           </div>
