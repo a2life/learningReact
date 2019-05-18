@@ -24,7 +24,7 @@ function App() {
         el.id=index;
         return el}) //add unique key to the array
       setApts(apts);
-      setItemId(apts.length)
+      setItemId(apts.length) //itemId holds the last id number. this is used for adding new record key.
     };
     fetchData();
   },[]);
