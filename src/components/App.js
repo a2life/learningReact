@@ -11,8 +11,8 @@ function App() {
   const [apts, setApts] = useState([]);
   const [formDisplay,setformDisplay]=useState(false);
   const [itemId, setItemId]=useState(0);
-  const [orderBy,setOrderBy]=useState('petName')
-  const [orderDir,setOrderDir]=useState('asc')
+  const [orderBy,setOrderBy]=useState('petName');
+  const [orderDir,setOrderDir]=useState('asc');
 
   useEffect(() => {
     async function fetchData() {
@@ -37,7 +37,10 @@ function App() {
   const toggleForm=function(){
     setformDisplay(!formDisplay)
   }
-
+  function changeOrder(sortBy, Dir){
+    setOrderBy(sortBy);
+    setOrderDir(Dir);
+  }
   function addAppointment(apt){
     let tempApts=apts;
     apt.id=itemId;
@@ -77,7 +80,11 @@ function App() {
               toggleForm={toggleForm}
               addAppointment={addAppointment}
               />
-              <SearchAppointments  />
+              <SearchAppointments
+              orderBy={orderBy}
+              orderDir={orderDir}
+              changeOrder={changeOrder}
+              />
               <ListAppointments 
                 appointments={filteredApts}
                 deleteAppointment={deleteAppointment} />
