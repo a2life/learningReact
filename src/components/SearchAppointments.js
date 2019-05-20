@@ -11,6 +11,7 @@ function searchAppointments(props) {
                         type="text"
                         className="form-control"
                         aria-label="Search Appointments"
+                        onChange={e=>props.searchApt(e.target.value)}
                     />
                     <div className="input-group-append">
                         <button

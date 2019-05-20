@@ -71,7 +71,9 @@ function App() {
     || (el.aptNotes.toLowerCase().includes(queryText.toLowerCase()))
   });
 
-  
+  function searchApt(query){
+    setQuaryText(query)
+  }
   return (
     <main className="page bg-white" id="petratings">
       <div className="container">
@@ -89,6 +91,7 @@ function App() {
               orderBy={orderBy}
               orderDir={orderDir}
               changeOrder={changeOrder}
+              searchApt={searchApt}
               />
               <ListAppointments 
                 appointments={filteredApts}
