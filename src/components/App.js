@@ -13,6 +13,7 @@ function App() {
   const [itemId, setItemId]=useState(0);
   const [orderBy,setOrderBy]=useState('petName');
   const [orderDir,setOrderDir]=useState('asc');
+  const [queryText,setQuaryText]=useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -44,8 +45,8 @@ function App() {
   function addAppointment(apt){
     let tempApts=apts;
     apt.id=itemId;
-    setItemId(itemId+1)
-    tempApts.unshift(apt)
+    setItemId(itemId+1);
+    tempApts.unshift(apt);
 
     setApts(tempApts)
 
@@ -58,13 +59,17 @@ function App() {
     order=-1;
   }
 
-  filteredApts.sort((a,b)=>{
+  filteredApts=filteredApts.sort((a,b)=>{
     if (a[orderBy].toLowerCase()<b[orderBy].toLowerCase()){
       return -1 * order;
     } else {
       return 1 * order;
     }
-  })
+  }).filter(el=>{
+    return (el.petName.toLowerCase().includes(queryText.toLowerCase()))
+    || (el.ownerName.toLowerCase().includes(queryText.toLowerCase()))
+    || (el.aptNotes.toLowerCase().includes(queryText.toLowerCase()))
+  });
 
   
   return (
