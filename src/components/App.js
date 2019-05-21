@@ -4,7 +4,7 @@ import '../css/App.css';
 import AddAppointments from './AddAppointments'
 import SearchAppointments from './SearchAppointments'
 import ListAppointments from './ListAppointments'
-import {without} from 'lodash';
+import {without,findIndex} from 'lodash';
 
 function App() {
   
@@ -42,6 +42,15 @@ function App() {
     setOrderBy(sortBy);
     setOrderDir(Dir);
   }
+
+  function updateInfo(name,value,id){
+    let tempApts=apts;
+    let aptIndex =findIndex(apts, {id: id});
+    tempApts[aptIndex][name] = value;
+    setApts(tempApts);
+  }
+
+
   function addAppointment(apt){
     let tempApts=apts;
     apt.id=itemId;
@@ -95,7 +104,9 @@ function App() {
               />
               <ListAppointments 
                 appointments={filteredApts}
-                deleteAppointment={deleteAppointment} />
+                deleteAppointment={deleteAppointment}
+                updateInfo={updateInfo}
+              />
             </div>
           </div>
         </div>

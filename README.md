@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+## React .js: Building an Interface
+by Ray Villalobos
+#### The code is based on Ray's Linkedin education course. However, all components were re-written with classless functional components.
+Use of useState and useEffect.  No class deifnition or use of 'this'
 ## Available Scripts
 
 In the project directory, you can run:
